@@ -43,6 +43,10 @@ impl Database {
     fn insert(&mut self, task: Task) {
         self.tasks.insert(task.id, task);
     }
+
+    fn get(&mut self, id: u64) -> Option<&Task> {
+        self.tasks.get(id)
+    }
 }
 
 fn main() {
