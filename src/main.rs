@@ -40,6 +40,9 @@ impl Database {
     }
 
     // CRUD DATA
+    fn insert(&mut self, task: Task) {
+        self.tasks.insert(task.id, task);
+    }
 }
 
 fn main() {
