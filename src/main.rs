@@ -39,13 +39,16 @@ impl Database {
         }
     }
 
-    // CRUD DATA
     fn insert(&mut self, task: Task) {
         self.tasks.insert(task.id, task);
     }
 
     fn get(&mut self, id: u64) -> Option<&Task> {
         self.tasks.get(id)
+    }
+
+    fn get_all(&mut self) -> Vec<&Task> {
+        self.tasks.values().collect()
     }
 }
 
