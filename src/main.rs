@@ -31,6 +31,17 @@ struct Database {
     users: HashMap<u64, Task>,
 }
 
+impl Database {
+    fn new() -> Self {
+        Self {
+            tasks: HashMap::new(),
+            users: HashMap::new(),
+        }
+    }
+
+    // CRUD DATA
+}
+
 fn main() {
     println!("Hello, world!");
 }
