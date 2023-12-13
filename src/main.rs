@@ -50,6 +50,10 @@ impl Database {
     fn get_all(&mut self) -> Vec<&Task> {
         self.tasks.values().collect()
     }
+
+    fn delete(&mut self, id: &u64) -> Option<&Task> {
+        self.tasks.remove(id)
+    }
 }
 
 fn main() {
