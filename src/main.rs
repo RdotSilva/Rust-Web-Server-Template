@@ -28,7 +28,7 @@ struct User {
 #[derive(Serialize, Deserialize, Debug, Clone)]
 struct Database {
     tasks: HashMap<u64, Task>,
-    users: HashMap<u64, Task>,
+    users: HashMap<u64, User>,
 }
 
 impl Database {
@@ -57,6 +57,11 @@ impl Database {
 
     fn update(&mut self, task: Task) {
         self.tasks.insert(task.id, task);
+    }
+
+    // User data related functions
+    fn insert_user(&mut self, user: User) {
+        self.users.insert(user.id, user);
     }
 }
 
