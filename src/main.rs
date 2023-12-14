@@ -63,6 +63,10 @@ impl Database {
     fn insert_user(&mut self, user: User) {
         self.users.insert(user.id, user);
     }
+
+    fn get_user_by_name(&self, username: &str) -> Option<&User> {
+        self.users.values().find(|u: &&User| u.username == username)
+    }
 }
 
 fn main() {
