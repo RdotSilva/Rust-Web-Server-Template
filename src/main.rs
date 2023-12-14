@@ -54,6 +54,10 @@ impl Database {
     fn delete(&mut self, id: &u64) -> Option<&Task> {
         self.tasks.remove(id)
     }
+
+    fn update(&mut self, task: Task) {
+        self.tasks.insert(task.id, task);
+    }
 }
 
 fn main() {
