@@ -39,36 +39,45 @@ impl Database {
         }
     }
 
+    /// Insert an item into the database
     fn insert(&mut self, task: Task) {
         self.tasks.insert(task.id, task);
     }
 
+    /// Get an item from the database
     fn get(&mut self, id: &u64) -> Option<&Task> {
         self.tasks.get(id)
     }
 
+    /// Get all items from the database
     fn get_all(&mut self) -> Vec<&Task> {
         self.tasks.values().collect()
     }
 
+    /// Delete an item from the database
     fn delete(&mut self, id: &u64) -> Option<&Task> {
         self.tasks.remove(id)
     }
 
+    /// Update an item in the database
     fn update(&mut self, task: Task) {
         self.tasks.insert(task.id, task);
     }
 
-    // User data related functions
+    /// User data related functions
+
+    /// Insert a user into the database
     fn insert_user(&mut self, user: User) {
         self.users.insert(user.id, user);
     }
 
+    /// Get a user by name from the database
     fn get_user_by_name(&self, username: &str) -> Option<&User> {
         self.users.values().find(|u: &&User| u.username == username)
     }
 
     // Database saving functions
+
     fn save_to_file(&self) -> std::io::Result<()> {
         // Convert hashmap to JSON string
         let data: String = serde_json::to_string(&self)?;
