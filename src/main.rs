@@ -67,6 +67,18 @@ impl Database {
     fn get_user_by_name(&self, username: &str) -> Option<&User> {
         self.users.values().find(|u: &&User| u.username == username)
     }
+
+    // Database saving functions
+    fn save_to_file(&self) -> std::io::Result<()> {
+        // Convert hashmap to JSON string
+        let data: String = serde_json::to_string(&self)?;
+
+        // Create the database JSON file
+        let mut file: fs::File = fs::File::create("database.json")?;
+
+        file.write_all(data.as_bytes())?;
+        Ok(())
+    }
 }
 
 fn main() {
