@@ -96,6 +96,10 @@ impl Database {
     }
 }
 
+struct AppState {
+    db: Mutex<Database>,
+}
+
 fn main() {
     println!("Hello, world!");
 }
