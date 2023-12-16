@@ -88,6 +88,12 @@ impl Database {
         file.write_all(data.as_bytes())?;
         Ok(())
     }
+
+    fn load_from_file() -> std::io::Result<Self> {
+        let file_content: String = fs::read_to_string("database.json")?;
+        let db: Database = serde_json::from_str(&file_content)?;
+        Ok(db)
+    }
 }
 
 fn main() {
