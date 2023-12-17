@@ -108,6 +108,15 @@ async fn create_task(app_state: web::Data<AppState>, task: web::Json<Task>) -> i
     HttpResponse::Ok().finish()
 }
 
+#[actix_web::main]
+async fn main() -> std::io::Result<()> {
+    let db: Database = match Database::load_from_file() {
+        Ok(db) => db,
+        Err(_) => Database::new(),
+    };
+
+    let data: web::Data<AppState> = web::Data::new(AppState { db: Mutex::new(db) });
+}
 fn main() {
     println!("Hello, world!");
 }
