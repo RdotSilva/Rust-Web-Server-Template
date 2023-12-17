@@ -116,6 +116,26 @@ async fn main() -> std::io::Result<()> {
     };
 
     let data: web::Data<AppState> = web::Data::new(AppState { db: Mutex::new(db) });
+
+    HttpServer::new(move || {
+        App::new()
+            .wrap(
+                Cors::permissive()
+                    .allowed_origin_fn(|origin, _req_head| {
+                        origin.as_bytes().starts_with(b"http://localhost") || origin == "null"
+                    })
+                    .allowed_methods(vec!["GET", "POST", "PUT", "DELETE"])
+                    .allowed_headers(vec![header::AUTHORIZATION, header::ACCEPT])
+                    .allowed_header(header::CONTENT_TYPE)
+                    .supports_credentials()
+                    .max_age(3600),
+            )
+            .app_data(data.clone())
+            .route("/task", web::post().to(create_task))
+    })
+    .bind("127.0.0.1:8080")?
+    .run()
+    .await
 }
 fn main() {
     println!("Hello, world!");
