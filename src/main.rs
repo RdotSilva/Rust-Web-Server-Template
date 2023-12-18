@@ -55,7 +55,7 @@ impl Database {
     }
 
     /// Delete an item from the database
-    fn delete(&mut self, id: &u64) -> Option<&Task> {
+    fn delete(&mut self, id: &u64) -> Option<Task> {
         self.tasks.remove(id)
     }
 
