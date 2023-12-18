@@ -137,6 +137,3 @@ async fn main() -> std::io::Result<()> {
     .run()
     .await
 }
-fn main() {
-    println!("Hello, world!");
-}
