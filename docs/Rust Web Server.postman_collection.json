@@ -1,35 +1,72 @@
 {
-  "info": {
-    "_postman_id": "3d9fa8b2-6780-4ec5-9634-dbf6bd1aa4ae",
-    "name": "Rust Web Server",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "7246128"
-  },
-  "item": [
-    {
-      "name": "Create new task",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"id\": 1,\r\n    \"name\":  \"Task 1\",\r\n    \"completed\": false\r\n}"
-        },
-        "url": {
-          "raw": "http://localhost:8080/task",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "8080",
-          "path": ["task"]
-        }
-      },
-      "response": []
-    }
-  ]
+	"info": {
+		"_postman_id": "3d9fa8b2-6780-4ec5-9634-dbf6bd1aa4ae",
+		"name": "Rust Web Server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7246128"
+	},
+	"item": [
+		{
+			"name": "Create new task",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"name\":  \"Task 1\",\r\n    \"completed\": false\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/task",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get task by ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"name\":  \"Task 1\",\r\n    \"completed\": false\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/task/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"task",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
 }
