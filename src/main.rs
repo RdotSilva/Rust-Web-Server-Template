@@ -118,6 +118,14 @@ async fn read_task(app_state: web::Data<AppState>, id: web::Path<u64>) -> impl R
     }
 }
 
+// Read all tasks from database
+async fn read_all_tasks(app_state: web::Data<AppState>) -> impl Responder {
+    let mut db: std::sync::MutexGuard<Database> = app_state.db.lock().unwrap();
+
+    let tasks: Vec<&Task> = db.get_all();
+    HttpResponse::Ok().json(tasks)
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let db: Database = match Database::load_from_file() {
