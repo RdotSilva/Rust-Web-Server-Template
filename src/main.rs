@@ -168,6 +168,7 @@ async fn main() -> std::io::Result<()> {
             .app_data(data.clone())
             .route("/task", web::post().to(create_task))
             .route("/task", web::get().to(read_all_tasks))
+            .route("/task", web::put().to(update_task))
             .route("/task/{id}", web::get().to(read_task))
     })
     .bind("127.0.0.1:8080")?
