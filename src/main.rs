@@ -130,7 +130,7 @@ async fn read_all_tasks(app_state: web::Data<AppState>) -> impl Responder {
 async fn update_task(app_state: web::Data<AppState>, task: web::Json<Task>) -> impl Responder {
     let mut db: std::sync::MutexGuard<Database> = app_state.db.lock().unwrap();
 
-    db.insert(task.into_inner());
+    db.update(task.into_inner());
     let _ = db.save_to_file();
     HttpResponse::Ok().finish()
 }
