@@ -143,6 +143,14 @@ async fn delete_task(app_state: web::Data<AppState>, id: web::Path<u64>) -> impl
     HttpResponse::Ok().finish()
 }
 
+// Register a user
+async fn register(app_state: web::Data<AppState>, user: web::Json<User>) -> impl Responder {
+    let mut db: std::sync::MutexGuard<Database> = app_state.db.lock().unwrap();
+    db.insert_user(user.into_inner());
+    let _ = db.save_to_file();
+    HttpResponse::Ok().finish()
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let db: Database = match Database::load_from_file() {
