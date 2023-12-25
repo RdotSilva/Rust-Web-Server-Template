@@ -191,6 +191,7 @@ async fn main() -> std::io::Result<()> {
             .route("/task/{id}", web::get().to(read_task))
             .route("/task/{id}", web::delete().to(delete_task))
             .route("/register", web::post().to(register))
+            .route("/login", web::post().to(login))
     })
     .bind("127.0.0.1:8080")?
     .run()
