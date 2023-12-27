@@ -100,7 +100,7 @@ struct AppState {
     db: Mutex<Database>,
 }
 
-// Insert the task into database and save to file
+/// Insert the task into a local database file
 async fn create_task(app_state: web::Data<AppState>, task: web::Json<Task>) -> impl Responder {
     let mut db = app_state.db.lock().unwrap();
     db.insert(task.into_inner());
@@ -108,7 +108,7 @@ async fn create_task(app_state: web::Data<AppState>, task: web::Json<Task>) -> i
     HttpResponse::Ok().finish()
 }
 
-// Read a task from the database
+/// Read a task from the local database file
 async fn read_task(app_state: web::Data<AppState>, id: web::Path<u64>) -> impl Responder {
     let mut db: std::sync::MutexGuard<Database> = app_state.db.lock().unwrap();
 
@@ -118,7 +118,7 @@ async fn read_task(app_state: web::Data<AppState>, id: web::Path<u64>) -> impl R
     }
 }
 
-// Read all tasks from database
+// Read all tasks from the local database file
 async fn read_all_tasks(app_state: web::Data<AppState>) -> impl Responder {
     let mut db: std::sync::MutexGuard<Database> = app_state.db.lock().unwrap();
 
