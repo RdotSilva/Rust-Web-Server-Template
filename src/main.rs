@@ -11,6 +11,7 @@ use std::fs;
 use std::io::Write;
 use std::sync::Mutex;
 
+/// Represents a task
 #[derive(Serialize, Deserialize, Debug, Clone)]
 struct Task {
     id: u64,
@@ -39,17 +40,26 @@ impl Database {
         }
     }
 
-    /// Insert an item into the database
+    /// Insert a task into the database
+    /// # Arguments
+    ///
+    /// * `task` - The task to insert into the database
     fn insert(&mut self, task: Task) {
         self.tasks.insert(task.id, task);
     }
 
-    /// Get an item from the database
+    /// Retrieve a task from the database
+    /// # Arguments
+    ///
+    /// * `id` - The ID of the ask to retrieve
     fn get(&mut self, id: &u64) -> Option<&Task> {
         self.tasks.get(id)
     }
 
-    /// Get all items from the database
+    /// Remove a task from the database
+    /// # Arguments
+    ///
+    /// * `id` - The ID of the ask to remove
     fn get_all(&mut self) -> Vec<&Task> {
         self.tasks.values().collect()
     }
