@@ -74,7 +74,7 @@ impl Database {
     /// Update a task in the database
     /// # Arguments
     ///
-    /// * `Task` - The task to update
+    /// * `task` - The task to update
     fn update(&mut self, task: Task) {
         self.tasks.insert(task.id, task);
     }
@@ -82,11 +82,17 @@ impl Database {
     /// User data related functions
 
     /// Insert a user into the database
+    /// # Arguments
+    ///
+    /// * `user` - The user to insert
     fn insert_user(&mut self, user: User) {
         self.users.insert(user.id, user);
     }
 
-    /// Get a user by name from the database
+    /// Get a user by username from the database
+    /// # Arguments
+    ///
+    /// * `username` - The username of the user to retrieve
     fn get_user_by_name(&self, username: &str) -> Option<&User> {
         self.users.values().find(|u: &&User| u.username == username)
     }
