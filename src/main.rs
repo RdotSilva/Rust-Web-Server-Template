@@ -56,20 +56,25 @@ impl Database {
         self.tasks.get(id)
     }
 
-    /// Remove a task from the database
+    /// Retrieve all tasks from the database
     /// # Arguments
     ///
-    /// * `id` - The ID of the ask to remove
     fn get_all(&mut self) -> Vec<&Task> {
         self.tasks.values().collect()
     }
 
-    /// Delete an item from the database
+    /// Delete a task from the database
+    /// # Arguments
+    ///
+    /// * `id` - The ID of the task to delete
     fn delete(&mut self, id: &u64) -> Option<Task> {
         self.tasks.remove(id)
     }
 
-    /// Update an item in the database
+    /// Update a task in the database
+    /// # Arguments
+    ///
+    /// * `Task` - The task to update
     fn update(&mut self, task: Task) {
         self.tasks.insert(task.id, task);
     }
