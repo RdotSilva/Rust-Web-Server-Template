@@ -11,24 +11,34 @@ use std::fs;
 use std::io::Write;
 use std::sync::Mutex;
 
-/// Represents a task
+/// Represents a Task
 #[derive(Serialize, Deserialize, Debug, Clone)]
 struct Task {
+    /// ID of the task
     id: u64,
+    /// Name of the task
     name: String,
+    /// Completion status of the task
     completed: bool,
 }
 
+/// Represents a User
 #[derive(Serialize, Deserialize, Debug, Clone)]
 struct User {
+    /// ID of the user
     id: u64,
+    /// Username of the user
     username: String,
+    /// Password of the user
     password: String,
 }
 
+/// Represents a Database
 #[derive(Serialize, Deserialize, Debug, Clone)]
 struct Database {
+    /// All tasks in the database
     tasks: HashMap<u64, Task>,
+    /// All users in the database
     users: HashMap<u64, User>,
 }
 
