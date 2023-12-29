@@ -67,8 +67,6 @@ impl Database {
     }
 
     /// Retrieve all tasks from the database
-    /// # Arguments
-    ///
     fn get_all(&mut self) -> Vec<&Task> {
         self.tasks.values().collect()
     }
@@ -89,7 +87,7 @@ impl Database {
         self.tasks.insert(task.id, task);
     }
 
-    /// User data related functions
+    // User data related functions
 
     /// Insert a user into the database
     /// # Arguments
@@ -107,8 +105,10 @@ impl Database {
         self.users.values().find(|u: &&User| u.username == username)
     }
 
-    // Database saving functions
+    // Database saving/loading functions
 
+    /// Save the database to a local file
+    /// Saves to "database.json"
     fn save_to_file(&self) -> std::io::Result<()> {
         // Convert hashmap to JSON string
         let data: String = serde_json::to_string(&self)?;
@@ -120,6 +120,8 @@ impl Database {
         Ok(())
     }
 
+    /// Load the database from a local file
+    /// Loads from "database.json"
     fn load_from_file() -> std::io::Result<Self> {
         let file_content: String = fs::read_to_string("database.json")?;
         let db: Database = serde_json::from_str(&file_content)?;
@@ -127,6 +129,7 @@ impl Database {
     }
 }
 
+/// Represents the global application state
 struct AppState {
     db: Mutex<Database>,
 }
