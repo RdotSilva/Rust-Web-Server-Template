@@ -134,7 +134,11 @@ struct AppState {
     db: Mutex<Database>,
 }
 
-/// Insert the task into a local database file
+/// Create a new task and insert the task into a local database file
+/// # Arguments
+///
+/// * `app_state` - The global application state
+/// * `task` - The task to create
 async fn create_task(app_state: web::Data<AppState>, task: web::Json<Task>) -> impl Responder {
     let mut db = app_state.db.lock().unwrap();
     db.insert(task.into_inner());
