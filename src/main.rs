@@ -147,6 +147,10 @@ async fn create_task(app_state: web::Data<AppState>, task: web::Json<Task>) -> i
 }
 
 /// Read a task from the local database file
+/// # Arguments
+///
+/// * `app_state` - The global application state
+/// * `id` - The ID of the task to read
 async fn read_task(app_state: web::Data<AppState>, id: web::Path<u64>) -> impl Responder {
     let mut db: std::sync::MutexGuard<Database> = app_state.db.lock().unwrap();
 
@@ -156,7 +160,10 @@ async fn read_task(app_state: web::Data<AppState>, id: web::Path<u64>) -> impl R
     }
 }
 
-// Read all tasks from the local database file
+/// Read all tasks from the local database file
+/// # Arguments
+///
+/// * `app_state` - The global application state
 async fn read_all_tasks(app_state: web::Data<AppState>) -> impl Responder {
     let mut db: std::sync::MutexGuard<Database> = app_state.db.lock().unwrap();
 
@@ -164,7 +171,11 @@ async fn read_all_tasks(app_state: web::Data<AppState>) -> impl Responder {
     HttpResponse::Ok().json(tasks)
 }
 
-// Update a task in the database
+/// Update a task in the database
+/// # Arguments
+///
+/// * `app_state` - The global application state
+/// * `task` - The task to update
 async fn update_task(app_state: web::Data<AppState>, task: web::Json<Task>) -> impl Responder {
     let mut db: std::sync::MutexGuard<Database> = app_state.db.lock().unwrap();
 
@@ -173,7 +184,11 @@ async fn update_task(app_state: web::Data<AppState>, task: web::Json<Task>) -> i
     HttpResponse::Ok().finish()
 }
 
-// Remove a task from the database
+/// Remove a task from the database
+/// # Arguments
+///
+/// * `app_state` - The global application state
+/// * `id` - The ID of the task to remove
 async fn delete_task(app_state: web::Data<AppState>, id: web::Path<u64>) -> impl Responder {
     let mut db: std::sync::MutexGuard<Database> = app_state.db.lock().unwrap();
     db.delete(&id.into_inner());
@@ -181,7 +196,11 @@ async fn delete_task(app_state: web::Data<AppState>, id: web::Path<u64>) -> impl
     HttpResponse::Ok().finish()
 }
 
-// Register a user
+/// Register a user
+/// # Arguments
+///
+/// * `app_state` - The global application state
+/// * `user` - The user to register
 async fn register(app_state: web::Data<AppState>, user: web::Json<User>) -> impl Responder {
     let mut db: std::sync::MutexGuard<Database> = app_state.db.lock().unwrap();
     db.insert_user(user.into_inner());
@@ -189,7 +208,11 @@ async fn register(app_state: web::Data<AppState>, user: web::Json<User>) -> impl
     HttpResponse::Ok().finish()
 }
 
-// Login a user
+/// Login a user
+/// # Arguments
+///
+/// * `app_state` - The global application state
+/// * `user` - The user to login
 async fn login(app_state: web::Data<AppState>, user: web::Json<User>) -> impl Responder {
     let db: std::sync::MutexGuard<Database> = app_state.db.lock().unwrap();
     match db.get_user_by_name(&user.username) {
@@ -200,6 +223,7 @@ async fn login(app_state: web::Data<AppState>, user: web::Json<User>) -> impl Re
     }
 }
 
+/// Main function
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let db: Database = match Database::load_from_file() {
@@ -209,6 +233,7 @@ async fn main() -> std::io::Result<()> {
 
     let data: web::Data<AppState> = web::Data::new(AppState { db: Mutex::new(db) });
 
+    // Create a new HTTP Server with multiple routes
     HttpServer::new(move || {
         App::new()
             .wrap(
